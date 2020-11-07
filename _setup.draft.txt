@@ -1,0 +1,80 @@
+## PROJECT WOULD YOU RATHER OVERVIEW:
+-- Barebones to get starte with NextJS, MongoDB, and React
+
+RESOURCES:
+-- (https://developer.mongodb.com/how-to/nextjs-with-mongodb)
+
+PREREQUISITES:
+MongoDB Atlas (Sign up for Free). (link)
+Vercel Account (Sign up for free). (link)
+NodeJS 12+. (link)
+npm and npx installed (link)
+
+PACKAGE.JSON: !important
+-- copy to scripts
+"scripts": {
+    "dev": "next dev -- -p 3000",
+    "build": "rm -rf ./build && NODE_ENV=production next build",
+    "start": "next start -p 8080",
+    "deploy": "npm run build && gcloud app deploy"
+  },
+
+
+ENVIRONMENT FILE - .env.local
+MONGODB_URI=mongodb+srv://tim:fosque14@nodejs.mgnoa.mongodb.net/Store?retryWrites=true&w=majority
+MONGODB_DB=Store
+process.env.NODE_ENV = 'development'
+
+CREATE PROJECT - bootstrap mongodb to nextjs/react projectv(--example flag performs the bootstrap)
+-- npx create-next-app --example with-mongodb mflix
+
+STYLES React Bootstrap
+-- npm i react-bootstrap bootstrap
+-- in [_app.js] file add (import 'bootstrap/dist/css/bootstrap.min.css')
+Folder structure in root under [styles] folder
+-- global.css
+-- Home.module.css
+
+DEPLOYMENT:
+-- add app.yaml file (link)
+-- add next.config.js with the below code
+module.exports = {
+  distDir: 'build',
+}
+-- GCP DEPLOYMENT
+-- Google Cloud Build, Google Cloud Run, Google Bucket
+
+ICONS:
+-- add font awesome
+npm i --save @fortawesome/fontawesome-svg-core
+  npm install --save @fortawesome/free-solid-svg-icons
+  npm install --save @fortawesome/react-fontawesome
+-- sample implementation
+  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+  import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+
+
+MISC:
+-- Sample [Next Api] Route Request
+  import { connectToDatabase } from "../util/mongodb"; (from /pages directory)
+  import { connectToDatabase } from "../../util/mongodb"; (from /pages/api/ directory)
+
+export default async (req, res) => {
+  const { db } = await connectToDatabase();
+
+  const movies = await db
+    .collection("movies")
+    .find({})
+    .sort({ metacritic: -1 })
+    .limit(20)
+    .toArray();
+
+  res.json(movies);
+};
+
+-- Sample Component Route Request
+export async function getStaticProps(context) {
+  return {
+    props: {}, // will be passed to the page component as props
+  }
+}
