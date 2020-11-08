@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Login from '../components/Login';
+// import { Col } from 'react-bootstrap'
 
 import { connectToDatabase } from '../util/mongodb';
 
@@ -9,9 +10,8 @@ class LoginContainer extends Component {
   }
   render() {
     return (
-      <div>
-        Login to play
-        <Login data={this.props.users} />
+      <div sm='12' lg='6' className='d-flex justify-content-center'>
+        <Login users={this.props.users} />
       </div>
     );
   }

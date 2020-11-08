@@ -1,12 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
-import NavBar from '../components/NavBar'
+import NavBar from '../components/NavBar';
+import { useRouter, withRouter } from 'next/router'
 
 function MyApp({ Component, pageProps }) {
-  // const router = useRouter();
+  const router = useRouter();
   // const hideMenu = router.pathname === '/';
   // const hideCarousel = router.pathname !== '/demo';
   // console.log({router}, {hideMenu}, {hideCarousel})
+  // console.log({router})
 
   return (
     <div>
@@ -16,10 +18,10 @@ function MyApp({ Component, pageProps }) {
         </Col>
       </Row>
       <Container fluid>
-        <Component {...pageProps} />
+        <Component { ...pageProps } />
       </Container>
     </div>
   );
 }
 
-export default MyApp;
+export default withRouter(MyApp);
